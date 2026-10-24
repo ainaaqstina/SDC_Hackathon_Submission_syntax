@@ -22,11 +22,10 @@
 
 | Resource          | Link                                           |
 | ----------------- | ---------------------------------------------- |
-| GitHub Repository | https://github.com/your-username/your-project  |
-| Live Demo         | https://your-project.replit.app                |
-| RunPod Endpoint   | https://api.runpod.ai/v2/your-endpoint-id      |
-| Slide Deck        | https://example.com/slides                     |
-| Demo Video        | https://example.com/demo-video                 |
+| GitHub Repository | https://github.com/ainaaqstina/SDC_Hackathon_Submission_syntax  |
+| Live Demo         | https://CareerLens.replit.app                 |
+| Slide Deck        | https://CareerLens.replit.app/careerlens-project-overview/                     |
+| Demo Video        | https://youtu.be/iPwUJ7ccQLg?si=_FS2O1S8FuZ0F2-E                |
 
 ---
 
