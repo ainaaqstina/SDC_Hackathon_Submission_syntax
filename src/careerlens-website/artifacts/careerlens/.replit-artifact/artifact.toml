@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "CareerLens"
+description = "An AI-powered career intelligence platform that helps students, graduates, and career switchers understand their skills, explore future roles, and plan verified reskilling pathways."
+version = "1.0.0"
+id = "artifacts/careerlens"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23525
+
+[services.development]
+run = "pnpm --filter @workspace/careerlens run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/careerlens", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/careerlens/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23525"
+BASE_PATH = "/"

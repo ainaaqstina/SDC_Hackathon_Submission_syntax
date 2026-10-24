@@ -1,0 +1,1012 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: CareerLens career intelligence API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+  - name: career
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /career/demo-profiles:
+    get:
+      operationId: listDemoProfiles
+      tags: [career]
+      summary: List synthetic profiles for the hackathon demo
+      responses:
+        "200":
+          description: Demo profiles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProfileSummary"
+  /career/cv/analyze:
+    post:
+      operationId: analyzeCv
+      tags: [career]
+      summary: Extract structured profile data from an uploaded CV
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CvAnalysisInput"
+      responses:
+        "200":
+          description: Extracted data awaiting user confirmation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "400":
+          description: Missing or invalid upload content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CvUploadError"
+        "413":
+          description: PDF exceeds the 6 MB limit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CvUploadError"
+        "415":
+          description: Unsupported CV format (PDF only)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CvUploadError"
+        "422":
+          description: Corrupted, locked, unreadable, or text-empty PDF
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CvUploadError"
+  /career/profiles/{profileId}:
+    parameters:
+      - $ref: "#/components/parameters/ProfileId"
+    get:
+      operationId: getProfile
+      tags: [career]
+      summary: Get a confirmed career profile
+      responses:
+        "200":
+          description: Profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+    patch:
+      operationId: updateProfile
+      tags: [career]
+      summary: Confirm or edit extracted profile details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+    delete:
+      operationId: clearProfile
+      tags: [career]
+      summary: Clear retained profile data
+      responses:
+        "204":
+          description: Cleared
+  /career/dashboard/{profileId}:
+    get:
+      operationId: getDashboard
+      tags: [career]
+      summary: Get personalized dashboard intelligence
+      parameters:
+        - $ref: "#/components/parameters/ProfileId"
+      responses:
+        "200":
+          description: Dashboard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+  /career/careers:
+    get:
+      operationId: listCareerMatches
+      tags: [career]
+      summary: Rank careers for the confirmed profile
+      parameters:
+        - name: profileId
+          in: query
+          required: true
+          schema: { type: string }
+        - name: scenario
+          in: query
+          schema:
+            $ref: "#/components/schemas/ScenarioType"
+      responses:
+        "200":
+          description: Career matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CareerMatch"
+  /career/roadmaps:
+    post:
+      operationId: createRoadmap
+      tags: [career]
+      summary: Generate a personalized learning roadmap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoadmapInput"
+      responses:
+        "201":
+          description: Roadmap
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Roadmap"
+  /career/roadmaps/{roadmapId}/steps/{stepId}:
+    patch:
+      operationId: updateRoadmapStep
+      tags: [career]
+      summary: Save learning milestone progress
+      parameters:
+        - name: roadmapId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: stepId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RoadmapStepUpdate"
+      responses:
+        "200":
+          description: Updated roadmap
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Roadmap"
+  /career/scenarios/{profileId}/simulate:
+    post:
+      operationId: simulateScenario
+      tags: [career]
+      summary: Recalculate role and skill priorities for a future scenario
+      parameters:
+        - $ref: "#/components/parameters/ProfileId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScenarioInput"
+      responses:
+        "200":
+          description: Scenario results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScenarioResult"
+  /career/sources:
+    get:
+      operationId: listDataSources
+      tags: [career]
+      summary: List data sources and methodology
+      responses:
+        "200":
+          description: Data sources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DataSource"
+  /career/workforce-context:
+    get:
+      operationId: getWorkforceContext
+      tags: [career]
+      summary: List imported, attributed WEF 2025 skill and occupation signals
+      responses:
+        "200":
+          description: Imported global workforce trends with CareerLens industry mappings kept distinct
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkforceContext"
+  /career/trends/import:
+    post:
+      operationId: importTrendSnapshot
+      tags: [career]
+      summary: Import a dated, sourced market signal snapshot
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrendSnapshotInput"
+      responses:
+        "201":
+          description: Imported signals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrendSignal"
+  /career/radar/{profileId}:
+    get:
+      operationId: getCareerRadar
+      tags: [career]
+      summary: Get source-labeled occupation, listing, and search-interest evidence
+      parameters:
+        - $ref: "#/components/parameters/ProfileId"
+      responses:
+        "200":
+          description: Career intelligence radar
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerRadar"
+  /career/data-admin/status:
+    get:
+      operationId: getCareerDataAdminStatus
+      tags: [career]
+      summary: Get import and connector status
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      responses:
+        "200":
+          description: Counts and source connection state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareerDataAdminStatus"
+        "401":
+          description: Admin token not accepted
+        "503":
+          description: Data administration is not configured
+  /career/data-admin/import/occupations:
+    post:
+      operationId: importOccupationDataset
+      tags: [career]
+      summary: Import source-backed occupation records from CSV or JSON
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OccupationImportInput"
+      responses:
+        "201":
+          description: Occupations imported
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OccupationImportResult"
+        "400":
+          description: Invalid source file or metadata
+        "401":
+          description: Admin token not accepted
+        "503":
+          description: Data administration is not configured
+  /career/data-admin/import/google-trends:
+    post:
+      operationId: importGoogleTrends
+      tags: [career]
+      summary: Import a Google Trends CSV as search-interest observations
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoogleTrendsImportInput"
+      responses:
+        "201":
+          description: Search-interest observations imported
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrendImportResult"
+        "400":
+          description: Invalid CSV or metadata
+        "401":
+          description: Admin token not accepted
+        "503":
+          description: Data administration is not configured
+  /career/data-admin/onet/refresh:
+    post:
+      operationId: refreshOnetOccupationData
+      tags: [career]
+      summary: Import official O*NET occupation families and transferable-skill signals
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      responses:
+        "200":
+          description: Import results or cached O*NET release status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OnetRefreshResult"
+        "401":
+          description: Admin token not accepted
+        "409":
+          description: An O*NET refresh is already running
+        "502":
+          description: Official O*NET source could not be downloaded or parsed
+        "503":
+          description: Data administration is not configured
+  /career/data-admin/adzuna/refresh:
+    post:
+      operationId: refreshAdzunaData
+      tags: [career]
+      summary: Verify a country category catalog then refresh Adzuna listings
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdzunaRefreshInput"
+      responses:
+        "200":
+          description: Refresh results or cached source status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdzunaRefreshResult"
+        "400":
+          description: Unsupported country or invalid request
+        "401":
+          description: Admin token not accepted
+        "403":
+          description: Adzuna usage permission has not been confirmed
+        "503":
+          description: Adzuna credentials or data administration are not configured
+  /career/data-admin/theirstack/refresh:
+    post:
+      operationId: refreshTheirStackData
+      tags: [career]
+      summary: Refresh a bounded sample of recent TheirStack job listings
+      parameters:
+        - $ref: "#/components/parameters/CareerDataAdminToken"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TheirStackRefreshInput"
+      responses:
+        "200":
+          description: Refresh results or cached source status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TheirStackRefreshResult"
+        "400":
+          description: Invalid country or request
+        "401":
+          description: Admin token not accepted
+        "409":
+          description: A refresh for the country is already running
+        "429":
+          description: TheirStack rate limit reached
+        "503":
+          description: Data administration is not configured or provider credits are unavailable
+components:
+  parameters:
+    ProfileId:
+      name: profileId
+      in: path
+      required: true
+      schema:
+        type: string
+    CareerDataAdminToken:
+      name: X-Career-Data-Admin-Token
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 16
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+    ScenarioType:
+      type: string
+      enum: [moderate, fast]
+    SkillLevel:
+      type: string
+      enum: [awareness, developing, proficient, advanced]
+    TrendDirection:
+      type: string
+      enum: [rising, stable, declining]
+    ProfileSummary:
+      type: object
+      required: [id, name, domain, label]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        domain: { type: string }
+        label: { type: string }
+    Skill:
+      type: object
+      required: [name, category, level, verified]
+      properties:
+        name: { type: string }
+        category: { type: string }
+        level:
+          $ref: "#/components/schemas/SkillLevel"
+        verified: { type: boolean }
+    Experience:
+      type: object
+      required: [title, organization, description]
+      properties:
+        title: { type: string }
+        organization: { type: string }
+        description: { type: string }
+        years: { type: number }
+    Profile:
+      type: object
+      required: [id, name, education, primaryDomain, secondaryDomains, skills, experience, interests, confirmed, updatedAt]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        education: { type: string }
+        totalExperienceYears: { type: number, minimum: 0, maximum: 70 }
+        fieldOfStudy: { type: string }
+        primaryDomain: { type: string }
+        secondaryDomains:
+          type: array
+          items: { type: string }
+        skills:
+          type: array
+          items:
+            $ref: "#/components/schemas/Skill"
+        experience:
+          type: array
+          items:
+            $ref: "#/components/schemas/Experience"
+        interests:
+          type: array
+          items: { type: string }
+        certifications:
+          type: array
+          items: { type: string }
+        confirmed: { type: boolean }
+        updatedAt: { type: string, format: date-time }
+    CvUploadError:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+    CvAnalysisInput:
+      type: object
+      required: [fileName, mimeType, contentBase64]
+      properties:
+        fileName: { type: string, minLength: 1 }
+        mimeType:
+          type: string
+          enum: [application/pdf]
+        contentBase64:
+          type: string
+          description: Base64-encoded PDF bytes; decoded size must be at most 6 MiB (6291456 bytes).
+          maxLength: 8388608
+    ProfileUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        education: { type: string }
+        totalExperienceYears: { type: number, minimum: 0, maximum: 70 }
+        fieldOfStudy: { type: string }
+        primaryDomain: { type: string }
+        secondaryDomains:
+          type: array
+          items: { type: string }
+        skills:
+          type: array
+          items:
+            $ref: "#/components/schemas/Skill"
+        certifications:
+          type: array
+          items: { type: string }
+        experience:
+          type: array
+          items:
+            $ref: "#/components/schemas/Experience"
+        interests:
+          type: array
+          items: { type: string }
+        confirmed: { type: boolean }
+    TrendSignal:
+      type: object
+      required: [skill, direction, score, source, observedAt, evidence]
+      properties:
+        skill: { type: string }
+        direction:
+          $ref: "#/components/schemas/TrendDirection"
+        score: { type: integer, minimum: 0, maximum: 100 }
+        source: { type: string }
+        observedAt: { type: string, format: date }
+        evidence: { type: string }
+    TrendSnapshotSkill:
+      type: object
+      required: [skill, direction, score, evidence]
+      properties:
+        skill: { type: string, minLength: 1, maxLength: 100 }
+        direction:
+          $ref: "#/components/schemas/TrendDirection"
+        score: { type: integer, minimum: 0, maximum: 100 }
+        evidence: { type: string, minLength: 1, maxLength: 500 }
+    TrendSnapshotInput:
+      type: object
+      required: [source, sourceUrl, license, observedAt, signals]
+      properties:
+        source: { type: string, minLength: 1, maxLength: 200 }
+        sourceUrl: { type: string, format: uri }
+        license: { type: string, minLength: 1, maxLength: 200 }
+        observedAt: { type: string, format: date }
+        signals:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: "#/components/schemas/TrendSnapshotSkill"
+    SdgLink:
+      type: object
+      required: [number, name, explanation]
+      properties:
+        number: { type: integer, minimum: 1, maximum: 17 }
+        name: { type: string }
+        explanation: { type: string }
+    CareerMatch:
+      type: object
+      required: [id, title, domain, score, skillsScore, interestScore, matchedSkills, missingSkills, explanation, responsibilities, sdgs]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        domain: { type: string }
+        occupationCode: { type: ["string", "null"], description: "Stable source occupation code, such as an O*NET-SOC code. The existing id remains the saved-roadmap identifier." }
+        careerLensSpecializationBasedOn: { type: ["string", "null"], description: "Official source occupation title underlying this profile-specific CareerLens display specialization." }
+        score: { type: integer, minimum: 0, maximum: 100 }
+        skillsScore: { type: integer }
+        interestScore: { type: integer }
+        softwareScore: { type: ["integer", "null"], minimum: 0, maximum: 100 }
+        transferableSkillsScore: { type: ["integer", "null"], minimum: 0, maximum: 100 }
+        scoringNote: { type: ["string", "null"] }
+        trendScore: { type: integer }
+        dataClassification:
+          type: string
+          enum: [source_backed, demonstration]
+        sourceName: { type: ["string", "null"] }
+        sourceUrl: { type: ["string", "null"], format: uri }
+        countryCode: { type: ["string", "null"] }
+        publicationPeriod: { type: ["string", "null"] }
+        observedListingCount: { type: ["integer", "null"], minimum: 0 }
+        listingEvidenceUpdatedAt: { type: ["string", "null"], format: date-time }
+        listingEvidenceSourceName: { type: ["string", "null"] }
+        listingEvidenceSourceUrl: { type: ["string", "null"], format: uri }
+        searchInterestNote: { type: ["string", "null"] }
+        matchedSkills:
+          type: array
+          items: { type: string }
+        missingSkills:
+          type: array
+          items: { type: string }
+        explanation: { type: string }
+        responsibilities:
+          type: array
+          items: { type: string }
+        sdgs:
+          type: array
+          items:
+            $ref: "#/components/schemas/SdgLink"
+    Dashboard:
+      type: object
+      required: [profile, topMatch, matches, trends, roadmap, profileStrength, marketUpdatedAt]
+      properties:
+        profile:
+          $ref: "#/components/schemas/Profile"
+        topMatch:
+          $ref: "#/components/schemas/CareerMatch"
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CareerMatch"
+        trends:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrendSignal"
+        roadmap:
+          anyOf:
+            - $ref: "#/components/schemas/Roadmap"
+            - type: "null"
+        profileStrength: { type: integer }
+        marketUpdatedAt: { type: string, format: date }
+    RoadmapInput:
+      type: object
+      required: [profileId, careerId]
+      properties:
+        profileId: { type: string }
+        careerId: { type: string }
+    LearningResource:
+      type: object
+      required: [title, provider, url]
+      properties:
+        title: { type: string }
+        provider: { type: string }
+        url: { type: string, format: uri }
+        access: { type: string, enum: [free, paid, unknown] }
+        kind: { type: string, enum: [learning, certificate] }
+        providerUrl: { type: string, format: uri }
+    RoadmapStep:
+      type: object
+      required: [id, skill, reason, duration, difficulty, prerequisites, resources, complete]
+      properties:
+        id: { type: string }
+        skill: { type: string }
+        reason: { type: string }
+        duration: { type: string }
+        difficulty: { type: string }
+        prerequisites:
+          type: array
+          items: { type: string }
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/LearningResource"
+        complete: { type: boolean }
+    Roadmap:
+      type: object
+      required: [id, profileId, careerId, careerTitle, progress, steps]
+      properties:
+        id: { type: string }
+        profileId: { type: string }
+        careerId: { type: string }
+        careerTitle: { type: string }
+        progress: { type: integer }
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoadmapStep"
+    RoadmapStepUpdate:
+      type: object
+      required: [complete]
+      properties:
+        complete: { type: boolean }
+    ScenarioInput:
+      type: object
+      required: [scenario]
+      properties:
+        scenario:
+          $ref: "#/components/schemas/ScenarioType"
+        hypotheticalSkill:
+          type: ["string", "null"]
+    ScenarioResult:
+      type: object
+      required: [scenario, summary, estimatesLabel, matches, prioritySkills, readinessComparison]
+      properties:
+        scenario:
+          $ref: "#/components/schemas/ScenarioType"
+        summary: { type: string }
+        estimatesLabel: { type: string }
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CareerMatch"
+        prioritySkills:
+          type: array
+          items: { type: string }
+        hypotheticalImpact:
+          type: ["string", "null"]
+        readinessComparison:
+          oneOf:
+            - $ref: "#/components/schemas/ReadinessComparison"
+            - type: "null"
+    ReadinessComparison:
+      type: object
+      required: [careerId, careerTitle, skill, beforeAlignment, afterAlignment, changePoints]
+      properties:
+        careerId: { type: string }
+        careerTitle: { type: string }
+        skill: { type: string }
+        beforeAlignment: { type: integer, minimum: 0, maximum: 100 }
+        afterAlignment: { type: integer, minimum: 0, maximum: 100 }
+        changePoints: { type: integer, minimum: -100, maximum: 100 }
+    DataSource:
+      type: object
+      required: [name, purpose, url, status, publicationDate, lastUpdated, methodology]
+      properties:
+        name: { type: string }
+        purpose: { type: string }
+        url: { type: string, format: uri }
+        status:
+          type: string
+          enum: [active, snapshot, planned]
+        publicationDate: { type: string, format: date }
+        lastUpdated: { type: string, format: date }
+        methodology: { type: string }
+    OccupationImportInput:
+      type: object
+      required: [sourceName, license, permissionConfirmed, fileName, format, fileContent]
+      properties:
+        sourceName: { type: string, minLength: 1, maxLength: 200 }
+        license: { type: string, minLength: 1, maxLength: 500 }
+        permissionConfirmed: { type: boolean }
+        fileName: { type: string, minLength: 1, maxLength: 255 }
+        format: { type: string, enum: [csv, json] }
+        fileContent: { type: string, minLength: 1, maxLength: 8000000 }
+    GoogleTrendsImportInput:
+      type: object
+      required: [sourceName, sourceUrl, license, permissionConfirmed, region, periodStart, periodEnd, extractionDate, skill, fileName, fileContent]
+      properties:
+        sourceName: { type: string, minLength: 1, maxLength: 200 }
+        sourceUrl: { type: string, format: uri }
+        license: { type: string, minLength: 1, maxLength: 500 }
+        permissionConfirmed: { type: boolean }
+        region: { type: string, minLength: 1, maxLength: 100 }
+        periodStart: { type: string, format: date }
+        periodEnd: { type: string, format: date }
+        extractionDate: { type: string, format: date }
+        skill: { type: string, minLength: 1, maxLength: 120 }
+        fileName: { type: string, minLength: 1, maxLength: 255 }
+        fileContent: { type: string, minLength: 1, maxLength: 8000000 }
+    AdzunaRefreshInput:
+      type: object
+      required: [countryCode]
+      properties:
+        countryCode: { type: string, minLength: 2, maxLength: 2 }
+        pagesPerCategory: { type: integer, minimum: 1, maximum: 5, default: 1 }
+    TheirStackRefreshInput:
+      type: object
+      required: [countryCode]
+      properties:
+        countryCode: { type: string, pattern: "^[A-Za-z]{2}$" }
+        postedAtMaxAgeDays: { type: integer, minimum: 1, maximum: 90, default: 30 }
+        limit: { type: integer, minimum: 1, maximum: 50, default: 10 }
+    OccupationImportResult:
+      type: object
+      required: [importRunId, imported, updated, skipped, totalRecords, status]
+      properties:
+        importRunId: { type: integer }
+        imported: { type: integer }
+        updated: { type: integer }
+        skipped: { type: integer }
+        totalRecords: { type: integer }
+        status: { type: string, enum: [succeeded, partially_succeeded] }
+    TrendImportResult:
+      type: object
+      required: [importRunId, imported, skipped, totalRecords, status]
+      properties:
+        importRunId: { type: integer }
+        imported: { type: integer }
+        skipped: { type: integer }
+        totalRecords: { type: integer }
+        status: { type: string, enum: [succeeded, partially_succeeded] }
+    AdzunaRefreshResult:
+      type: object
+      required: [countryCode, cached, categoriesVerified, categoriesFound, imported, updated, skipped, status, attributionRequired]
+      properties:
+        countryCode: { type: string }
+        cached: { type: boolean }
+        categoriesVerified: { type: boolean }
+        categoriesFound: { type: integer }
+        imported: { type: integer }
+        updated: { type: integer }
+        skipped: { type: integer }
+        status: { type: string }
+        attributionRequired: { type: boolean }
+        message: { type: string }
+    TheirStackRefreshResult:
+      type: object
+      required: [countryCode, cached, postedAtMaxAgeDays, requestedLimit, returned, creditsConsumed, imported, updated, skipped, status, attributionRequired, message]
+      properties:
+        countryCode: { type: string }
+        cached: { type: boolean }
+        postedAtMaxAgeDays: { type: integer }
+        requestedLimit: { type: integer }
+        returned: { type: integer }
+        creditsConsumed: { type: integer }
+        providerTotalResults: { type: ["integer", "null"], minimum: 0 }
+        imported: { type: integer }
+        updated: { type: integer }
+        skipped: { type: integer }
+        status: { type: string, enum: [succeeded, partially_succeeded, cached] }
+        attributionRequired: { type: boolean }
+        message: { type: string }
+    OnetRefreshResult:
+      type: object
+      required: [version, cached, occupationsImported, occupationsUpdated, occupationFamilies, skillsLinked, jobListingsLinked, skipped, status, attribution, message]
+      properties:
+        version: { type: string }
+        cached: { type: boolean }
+        occupationsImported: { type: integer }
+        occupationsUpdated: { type: integer }
+        occupationFamilies: { type: integer }
+        skillsLinked: { type: integer }
+        jobListingsLinked: { type: integer }
+        skipped: { type: integer }
+        status: { type: string, enum: [succeeded, partially_succeeded, cached] }
+        attribution: { type: string }
+        message: { type: string }
+    CareerDataAdminStatus:
+      type: object
+      required: [sources, occupationCountsByIndustry, totals, recentRuns]
+      properties:
+        sources:
+          type: array
+          items:
+            type: object
+            required: [key, name, kind, status, lastAttemptAt, lastSuccessAt, lastError]
+            properties:
+              key: { type: string }
+              name: { type: string }
+              kind: { type: string }
+              status: { type: string }
+              lastAttemptAt: { type: ["string", "null"], format: date-time }
+              lastSuccessAt: { type: ["string", "null"], format: date-time }
+              lastError: { type: ["string", "null"] }
+              countryCode: { type: ["string", "null"] }
+              region: { type: ["string", "null"] }
+              recordCount: { type: integer }
+        occupationCountsByIndustry:
+          type: array
+          items:
+            type: object
+            required: [industry, count]
+            properties:
+              industry: { type: string }
+              count: { type: integer }
+        totals:
+          type: object
+          required: [occupations, skills, jobAds, trendObservations]
+          properties:
+            occupations: { type: integer }
+            skills: { type: integer }
+            jobAds: { type: integer }
+            trendObservations: { type: integer }
+        recentRuns:
+          type: array
+          items:
+            type: object
+            required: [id, sourceKey, status, importedCount, updatedCount, skippedCount, startedAt]
+            properties:
+              id: { type: integer }
+              sourceKey: { type: string }
+              status: { type: string }
+              importedCount: { type: integer }
+              updatedCount: { type: integer }
+              skippedCount: { type: integer }
+              error: { type: ["string", "null"] }
+              startedAt: { type: string, format: date-time }
+    CareerRadar:
+      type: object
+      required: [profileId, marketEvidenceStatus, occupationMatches, topObservedSkills, notes]
+      properties:
+        profileId: { type: string }
+        marketEvidenceStatus:
+          type: string
+          enum: [source_backed, demonstration, awaiting_data]
+        occupationMatches:
+          type: array
+          items:
+            $ref: "#/components/schemas/CareerMatch"
+        topObservedSkills:
+          type: array
+          items:
+            type: object
+            required: [skill, listingCount, sourceName, countryCode, updatedAt]
+            properties:
+              skill: { type: string }
+              listingCount: { type: integer }
+              sourceName: { type: string }
+              countryCode: { type: string }
+              updatedAt: { type: string, format: date-time }
+        searchInterest:
+          type: array
+          items:
+            type: object
+            required: [skill, region, interestValue, direction, periodStart, periodEnd, sourceName]
+            properties:
+              skill: { type: string }
+              region: { type: string }
+              interestValue: { type: integer, minimum: 0, maximum: 100 }
+              direction:
+                $ref: "#/components/schemas/TrendDirection"
+              periodStart: { type: string, format: date }
+              periodEnd: { type: string, format: date }
+              sourceName: { type: string }
+        notes:
+          type: array
+          items: { type: string }
+    WorkforceContext:
+      type: object
+      required: [skills, occupations, sources]
+      properties:
+        skills:
+          type: array
+          items: { $ref: "#/components/schemas/WorkforceRecord" }
+        occupations:
+          type: array
+          items: { $ref: "#/components/schemas/WorkforceRecord" }
+        sources:
+          type: array
+          items: { $ref: "#/components/schemas/WorkforceContextSource" }
+    WorkforceRecord:
+      type: object
+      required: [externalId, recordType, name, direction, rank, trendGroup, industryTags, industryTagsOfficial, numericSkillScore, observationYear, forecastEndYear, sourceFigure, sourceUrl, dataType, projectedGrowthPercent, aiReplacementProbability, rawRecord]
+      properties:
+        externalId: { type: string }
+        recordType: { type: string, enum: [skill_rank, occupation_direction] }
+        name: { type: string }
+        direction: { type: ["string", "null"] }
+        rank: { type: ["integer", "null"] }
+        trendGroup: { type: ["string", "null"] }
+        industryTags:
+          type: array
+          items: { type: string }
+        industryTagsOfficial: { type: ["boolean", "null"] }
+        numericSkillScore: { type: ["number", "null"] }
+        observationYear: { type: ["integer", "null"] }
+        forecastEndYear: { type: ["integer", "null"] }
+        sourceFigure: { type: ["string", "null"] }
+        sourceUrl: { type: string, format: uri }
+        dataType: { type: string }
+        projectedGrowthPercent: { type: ["number", "null"] }
+        aiReplacementProbability: { type: ["number", "null"] }
+        rawRecord:
+          type: object
+          additionalProperties: { type: string }
+    WorkforceContextSource:
+      type: object
+      required: [key, name, sourceUrl, publicationPeriod, dataType, recordCount, officialWefIndustryForecast]
+      properties:
+        key: { type: string }
+        name: { type: string }
+        sourceUrl: { type: string, format: uri }
+        publicationPeriod: { type: string }
+        dataType: { type: string }
+        recordCount: { type: integer, minimum: 0 }
+        officialWefIndustryForecast: { type: boolean }

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "7690b9fc-f7b2-4883-a318-1eaf0a2a7435",
+    "position": 1,
+    "filepath": "src/pages/slides/Cover.tsx",
+    "title": "CareerLens",
+    "description": "CareerLens overview cover.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "626d8919-43f2-41dd-88fe-ec601e2a2305",
+    "position": 2,
+    "filepath": "src/pages/slides/EditableProfile.tsx",
+    "title": "Start with an editable profile",
+    "description": "CV extraction and profile review.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "338ec6fe-eec7-4331-a8d2-5ed689ef3f78",
+    "position": 3,
+    "filepath": "src/pages/slides/RoleFit.tsx",
+    "title": "See why a role may fit",
+    "description": "Explainable career matching.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "df0b0fea-8d3a-44ad-9792-27f44720f8fc",
+    "position": 4,
+    "filepath": "src/pages/slides/SkillGaps.tsx",
+    "title": "Make skill gaps actionable",
+    "description": "Saved upskilling roadmap.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "1649f64b-7a32-4f93-b4e0-59ed51b3cf55",
+    "position": 5,
+    "filepath": "src/pages/slides/WhatCouldChange.tsx",
+    "title": "Explore what could change next",
+    "description": "Scenario, skills signal, and SDG context.",
+    "speakerNotes": ""
+  }
+]

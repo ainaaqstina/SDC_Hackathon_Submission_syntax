@@ -1,320 +1,490 @@
-# SDC_Hackathon_Submission_syntax
----
+# CareerLens — AI-Powered Career Intelligence Platform
 
-# Project Name
+**Explore career possibilities, understand your skills gaps, and plan your next step with explainable, data-informed guidance.**
 
-> A one-sentence description of what your project does and who it is for.
+CareerLens is an AI-powered career intelligence prototype developed by **Team syntax** for the **SDC Hackathon 2026 (Domain 1)**. It supports **SDG 4: Quality Education** as its primary focus and **SDG 8: Decent Work and Economic Growth** as a related goal.
 
----
+## Quick Links
+
+| Resource | Link |
+|---|---|
+| Live Prototype | [CareerLens on Replit](https://CareerLens.replit.app) |
+| GitHub Repository | [SDC_Hackathon_Submission_syntax](https://github.com/ainaaqstina/SDC_Hackathon_Submission_syntax) |
+| Project Overview | [CareerLens Project Overview](https://CareerLens.replit.app/careerlens-project-overview/) |
+| Demo Video | [Watch on YouTube](https://youtu.be/iPwUJ7ccQLg) |
 
 ## Team Information
 
-| Field                  | Details                                     |
-| ---------------------- | ------------------------------------------- |
-| **Team Name**          | syntax                                      |
-| **Team Domain**        | Domain 1                                    |
-| **SDG Track (1–17)**   | SDG 8 - Decent Work and Economic Growth |
-| **Team Leader**        | 'Ainaa Qistina binti Mohd Nazrin                                 |
-| **University**         | Universiti Teknikal Malaysia Melaka                          |
-| **Number of Members**  | 2                                      |
+| Field | Details |
+|---|---|
+| Team Name | syntax |
+| Project Name | CareerLens |
+| Hackathon | SDC Hackathon 2026 |
+| Domain | Domain 1 |
+| Primary SDG | SDG 4 — Quality Education |
+| Related SDG | SDG 8 — Decent Work and Economic Growth |
+| University | Universiti Teknikal Malaysia Melaka (UTeM) |
+| Number of Members | 2 |
+| Team Leader | 'Ainaa Qistina Binti Mohd Nazrin |
+| Team Member | Sharifah Nur Hayati binti Syed Zakaria |
 
-## Links
+## 1. Project Overview
 
-| Resource          | Link                                           |
-| ----------------- | ---------------------------------------------- |
-| GitHub Repository | https://github.com/ainaaqstina/SDC_Hackathon_Submission_syntax  |
-| Live Demo         | https://CareerLens.replit.app                 |
-| Slide Deck        | https://CareerLens.replit.app/careerlens-project-overview/                     |
-| Demo Video        | https://youtu.be/iPwUJ7ccQLg?si=_FS2O1S8FuZ0F2-E                |
+### Problem Statement
 
----
+Artificial intelligence is transforming the workforce and changing the skills required across industries. However, university students, fresh graduates, and working professionals often struggle to identify suitable career paths, understand employer expectations, and determine which skills they need to remain competitive.
 
-## Overview
+Traditional job search platforms primarily display vacancies and qualifications without providing comprehensive explanations of skill gaps, emerging opportunities, or personalized learning pathways.
 
-### Problem
+According to the **Hays Asia Salary Guide 2025**, 64% of Malaysian organizations experienced moderate to extreme skills shortages, highlighting the mismatch between workforce capabilities and employer expectations.
 
-Many students, fresh graduates, and job seekers struggle to identify career opportunities that match their existing skills and qualifications. Traditional job-search platforms primarily focus on displaying job vacancies without providing detailed insights into the skills applicants lack or the steps needed to become more competitive.
+This can lead individuals to pursue unsuitable career opportunities, overlook emerging occupations, or invest resources in training that does not align with industry demands.
 
-As a result, job seekers may apply for unsuitable positions or spend time learning skills that are not relevant to their desired careers. This contributes to skill mismatches, reduced employability, and difficulties transitioning from education to employment.
+### Proposed Solution
 
-### Solution
+**CareerLens** is an AI-powered career intelligence platform designed to help individuals identify suitable career opportunities, understand missing competencies, explore changing skill demands, and develop personalized learning pathways.
 
-CareerLens addresses these challenges through an AI-powered career guidance and skill gap analysis platform.
+Users can upload a CV or manually enter their skills, experiences, and interests. The platform analyzes their information and provides explainable career recommendations based on structured occupational data and job-market evidence.
 
-The system allows users to upload their CVs, which are analyzed using artificial intelligence to identify their existing technical and professional skills.
+By combining AI-assisted skills extraction, evidence-based career matching, labour-market intelligence, and personalized upskilling guidance, CareerLens aims to help individuals make informed career decisions.
 
-Users can then choose between two career exploration pathways:
+CareerLens serves as a **career decision-support tool**, not an automated recruitment or hiring system.
 
-Pathway 1: Target a Specific Career
+## 2. Key Features
 
-Users select a desired job role, and the system compares their existing skills against the requirements of relevant job opportunities.
+### 2.1 AI-Powered CV Analysis
 
-The AI identifies missing skills, highlights frequently requested competencies, and recommends personalized learning resources to help users become better qualified.
+- Upload CVs in PDF or DOCX formats.
+- Extract relevant information including skills, education, and experience.
+- Use Qwen3-8B through RunPod for AI-assisted information extraction.
+- Allow users to review and correct extracted information.
+- Organize confirmed information into a structured skills profile.
 
-Pathway 2: Discover Suitable Careers
+### 2.2 Dual Career Exploration Pathways
 
-Users who are unsure about their career direction can allow the AI to analyze their existing skills and recommend career roles that best align with their qualifications and experience.
+**Pathway 1 — Target a Specific Career**
 
-The system also provides explanations of the recommendations, helping users make informed career decisions.
+Users select a desired occupation and receive an analysis of how their existing skills align with occupational requirements.
 
-By combining CV analysis, career matching, skill gap identification, and personalized upskilling recommendations, SkillBridge AI aims to bridge the gap between education and employment.
+The platform identifies matching competencies, missing skills, and potential areas for improvement.
 
-### Key Features
+**Pathway 2 — Discover Suitable Careers**
 
-- **Feature 1 : AI-Powered CV Analysis** — Users upload their CVs in supported document formats.
+Users explore career recommendations based on their existing skills, qualifications, experiences, and interests.
 
-AI extracts relevant information, including technical skills, soft skills, education, and experience.
+The system presents career-fit explanations to help users understand why specific occupations may suit them.
 
-Extracted information is organized into a structured skill profile for further analysis.
-- **Feature 2 : Dual Career Exploration Pathways** — Target a Job: Users specify their desired career and receive skill compatibility analysis.
+### 2.3 Explainable Career Matching
 
-Discover Careers: AI recommends suitable job roles based on the user's existing skill set.
+- Compare user skills against structured occupational requirements.
+- Use occupational evidence from resources such as O*NET.
+- Evaluate software skill relevance, transferable skills, and interests.
+- Generate explainable career-fit scores.
+- Separate structured matching calculations from AI-generated explanations.
 
-Recommendations are accompanied by explanations to support career planning.
-- **Feature 3 : Intelligent Skill Gap Analysis** — Compares extracted CV skills against job requirements.
+### 2.4 Intelligent Skills Gap Analysis
 
-Identifies skills that users already possess and those they need to develop.
+- Identify skills already possessed by users.
+- Highlight missing competencies relevant to target occupations.
+- Consider available employer requirements and labour-market evidence.
+- Help users prioritize skills for improvement.
 
-Highlights frequently requested missing skills across relevant job opportunities.
+### 2.5 Personalized Upskilling Recommendations
 
-Helps users prioritize skills that may improve their employability.
-- **Feature 4 : Personalized Upskilling Recommendations** — Suggests relevant learning resources based on identified skill gaps.
+- Recommend relevant learning activities.
+- Provide suggested tutorials, online courses, and educational resources.
+- Include indicative learning durations.
+- Support personalized career-development pathways.
 
-Recommends introductory YouTube tutorials for self-paced learning.
+### 2.6 Future Skills Radar
 
-Suggests structured courses and certifications from platforms such as Coursera.
+- Present emerging and changing workforce skill demands.
+- Incorporate dated and source-attributed labour-market information.
+- Help users explore future career opportunities.
+- Support awareness of technological changes affecting occupational skills.
 
-Helps users develop a practical learning pathway toward their career goals.
-- **Feature 5 : AI-Generated Career Insights** — Provides understandable explanations of career recommendations.
+### 2.7 AI Disruption Scenarios
 
-Summarizes skill compatibility and improvement areas.
+CareerLens presents illustrative moderate and accelerated AI disruption scenarios to help users understand potential changes in occupations and skills requirements.
 
-Helps users make informed decisions about their professional development.
+These scenarios are intended for exploration and are not guaranteed predictions of future employment conditions.
 
-### Tech Stack
+### 2.8 Sustainable Development Goals Integration
 
-| Layer         | Technology                   |
-| ------------- | ---------------------------- |
-| Frontend      | HTML, CSS, JavaScript             |
-| Backend       | Python, Flask  |
-| Database      | e.g. PostgreSQL, SQLite      |
-| CV Processing | Python PDF/text extraction libraries      |
-| AI / Compute  | RunPod (GPU)                 |
-| Hosting / Dev | Replit                       |
-| Version Control | GitHub                       |
+CareerLens associates relevant occupations and skills with United Nations Sustainable Development Goals where supported mappings are available.
 
----
+This helps users explore how career choices and professional development may contribute to sustainable development.
 
-## Project Structure
+### 2.9 Job Market Insights
 
-```
-.
-CareerLens/
-├── docs/
-│   ├── screenshots/
-│   └── architecture/
-│
-├── runpod/
-│   ├── handler.py
-│   └── requirements.txt
-│
-├── src/
-│   ├── main.py
-│   ├── cv_parser.py
-│   ├── skill_analyzer.py
-│   ├── career_matcher.py
-│   └── recommendations.py
-│
-├── templates/
-│   ├── index.html
-│   ├── upload.html
-│   └── results.html
-│
-├── static/
-│   ├── css/
-│   └── js/
-│
-├── submission/
-│   ├── SDC2026_syntax_Preliminary.pdf
-│   ├── SDC2026_syntax_TechDeclaration.pdf
-│   ├── SDC2026_syntax_Replit_POU.pdf
-│   └── SDC2026_syntax_Runpod_POU.pdf
-│
-├── tests/
-│   └── test_utils.py
-│
-├── .env.example
-├── .gitignore
-├── .replit
-├── LICENSE
-├── requirements.txt
-└── README.md
-```
+CareerLens incorporates job-market information from declared sources including:
 
-### Architecture
+- TheirStack Job Search API
+- Adzuna Job Search API
+- O*NET occupational information
+- Public job-related datasets
 
-```
- USER
+Job-market information supports career exploration, employer skill requirements, and labour-market insights. Historical dataset records should not be interpreted as currently available vacancies.
+
+## 3. Technology Stack
+
+| Component | Technology | Purpose |
+|---|---|---|
+| Frontend | React 19.1.0 | Interactive user interface |
+| Programming Language | TypeScript 5.9 | Frontend and backend application logic |
+| Build Tool | Vite 7.3.7 | Frontend development and build |
+| Styling | Tailwind CSS 4.3.3 | Responsive application design |
+| UI Components | Radix UI | Accessible interface components |
+| Backend Runtime | Node.js 24 | Server-side JavaScript runtime |
+| Backend Framework | Express 5.3.x | REST API and application services |
+| Input Validation | Zod 3.25.76 | Request and data validation |
+| Database | PostgreSQL 16.10 | Structured data storage |
+| ORM | Drizzle ORM 0.45.4 | Database operations |
+| Supporting Component | Python 3.11.14 | Career-matching computation |
+| PDF Processing | pdf-parse 2.4.x | Extract information from PDF CVs |
+| DOCX Processing | Mammoth 1.13.x | Extract information from DOCX CVs |
+| AI Model | Qwen3-8B | Skills extraction and career guidance assistance |
+| AI Infrastructure | RunPod | Model inference |
+| Development and Hosting | Replit Core | Development, testing, and deployment |
+| Version Control | GitHub | Source code repository |
+
+## 4. System Architecture
+
+```text
+                  USER
                     |
                     v
-             REPLIT WEB APP
-                    |
-             Upload CV / Input
-                    |
-                    v
-             FLASK BACKEND
-                    |
-          Extract CV Text
+             CareerLens Website
+       React + TypeScript + Tailwind
                     |
                     v
-           RUNPOD GPU ENDPOINT
-                    |
-          AI Skill Analysis
+             Node.js / Express
                     |
           +---------+---------+
           |                   |
           v                   v
-     Target a Job       Discover Careers
-          |                   |
-          v                   v
-     Compare Skills      Match Career Roles
-          |                   |
-          +---------+---------+
-                    |
-                    v
-             Skill Gap Results
-                    |
-                    v
-       Upskilling Recommendations
-                    |
-                    v
-            RESULTS DASHBOARD
+    CV Processing        PostgreSQL
+    PDF / DOCX           Drizzle ORM
+          |
+          v
+      RunPod AI
+      Qwen3-8B
+          |
+          v
+    Structured Skills Profile
+          |
+          v
+     Career Matching Engine
+       Python Component
+          |
+     +----+----------------+
+     |                     |
+     v                     v
+ O*NET / Datasets     Job Market Data
+                      TheirStack / Adzuna
+     |                     |
+     +----------+----------+
+                |
+                v
+       Career Recommendations
+       Skills Gap Analysis
+       Upskilling Pathways
+       Future Skills Radar
+       SDG Associations
+                |
+                v
+         Results Dashboard
 ```
 
----
+### Architecture Explanation
 
-## How to Run
+The frontend provides an interactive interface for uploading CVs, entering skills, exploring occupations, and reviewing career recommendations.
 
-### Option 1 — Run on Replit (Recommended)
+The Node.js and Express backend manages application services, data processing, and integration with external resources.
 
-1. Open the Replit Project or import the GitHub repository into Replit.
-2. Install the required Python dependencies.
-3. Open the Secrets tab in Replit.
-4. Add the following environment variables:
-- RUNPOD_API_KEY
-- RUNPOD_ENDPOINT_ID
-5. Verify that the RunPod endpoint is active and accessible.
-6. Click Run to start the application.
-7. Open the web preview to interact with CareerLens.
+CV content is extracted using document-processing libraries and analyzed through the configured Qwen3-8B model hosted on RunPod.
 
-### Option 2 — Run Locally
+Confirmed user profiles and related structured information are managed using PostgreSQL and Drizzle ORM.
+
+The supporting career-matching component evaluates skills against occupational requirements and produces explainable career-fit information.
+
+External job-market information from TheirStack and Adzuna provides additional context for employment opportunities, employer requirements, and changing workforce demands.
+
+## 5. APIs and Cloud Services
+
+| Service | Purpose |
+|---|---|
+| RunPod AI Inference API | Hosts the configured AI model for CV analysis and personalized guidance |
+| TheirStack Job Search API | Provides job listings, employer skill requirements, and hiring signals |
+| Adzuna Job Search API | Supports job listing and occupation data updates |
+| Replit Core | Application development, testing, and deployment |
+| Replit-managed PostgreSQL | Persistent data storage |
+| GitHub | Version control and project submission |
+
+### Replit Integration
+
+Replit is the primary environment used to develop, test, debug, and prepare CareerLens for deployment.
+
+The application uses Replit's development environment to manage its web application and backend services.
+
+TheirStack is accessed through a Replit connector to support job-market data integration.
+
+### RunPod Integration
+
+RunPod provides AI inference infrastructure for the Qwen3-8B pre-trained model.
+
+The backend sends relevant extracted information for AI processing, and the resulting structured analysis supports CareerLens features such as CV understanding and personalized guidance.
+
+The project declares the use of **US$25 in SDC-sponsored RunPod credits**.
+
+RunPod inference and application hosting are separate components: Replit runs the web application, while RunPod supports AI workloads.
+
+## 6. Data Sources and Datasets
+
+CareerLens uses publicly available occupational resources, labour-market research, declared job datasets, and synthetic demonstration profiles.
+
+| Dataset / Resource | Purpose | Declared License / Terms |
+|---|---|---|
+| O*NET 31.0 Database | Occupational and skills information | CC BY 4.0 |
+| ESCO Skills Dataset | Supplementary skills taxonomy | Relevant attribution/share-alike terms |
+| WEF Future of Jobs Report 2025 | Workforce research and future skills context | WEF publication terms |
+| Job Listings: Open Jobs in Every Field (Daily) | Job listings dataset | License pending verification |
+| Future Jobs & Skills Demand 2025 | Future jobs and skills dataset | CC0 |
+| Global AI Jobs 2026 Dataset | AI-related employment dataset | CC0 |
+| CareerLens Synthetic Profiles | Prototype demonstration and evaluation | Team-created |
+
+### Dataset Sources
+
+- [O*NET Resource Center](https://www.onetcenter.org/)
+- [ESCO](https://esco.ec.europa.eu/)
+- [World Economic Forum — Future of Jobs Report 2025](https://www.weforum.org/publications/the-future-of-jobs-report-2025/)
+- [Kaggle — Job Listings: Open Jobs in Every Field (Daily)](https://www.kaggle.com/datasets/chandranshbinjola/job-listings)
+- [Kaggle — Future Jobs & Skills Demand 2025](https://www.kaggle.com/datasets/ahsanneural/future-jobs-and-skills-demand-2025)
+- [Kaggle — Global AI Jobs 2026](https://www.kaggle.com/datasets/datascikhan/global-ai-jobs-2026)
+
+The project does not claim to have trained or fine-tuned Qwen3-8B using these datasets.
+
+Dataset contents, licences, coverage, and update dates should be verified before redistribution or production use.
+
+## 7. How to Use CareerLens
+
+1. Visit [CareerLens](https://CareerLens.replit.app).
+2. Upload a PDF or DOCX CV, or manually enter your skills and career information.
+3. Review and confirm the extracted skills profile.
+4. Select either **Target a Specific Career** or **Discover Suitable Careers**.
+5. Examine recommended occupations, career-fit explanations, and skills gaps.
+6. Review recommended learning resources and upskilling pathways.
+7. Explore Future Skills Radar insights, AI disruption scenarios, and SDG associations where available.
+
+## 8. How to Run the Project
+
+### Option 1 — Online Prototype
+
+Visit:
+
+https://CareerLens.replit.app
+
+### Option 2 — Local Development
+
+Clone the repository:
 
 ```bash
-# 1. Clone the repository
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd CareerLens
-
-# 2. Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Configure environment variables
-cp .env.example .env            # then fill in your values
-
-# 5. Run the app
-python src/main.py
+git clone https://github.com/ainaaqstina/SDC_Hackathon_Submission_syntax.git
+cd SDC_Hackathon_Submission_syntax
 ```
 
-### Run Tests
+Install dependencies if the Node.js application is located at the repository root:
 
 ```bash
-python -m unittest discover tests
+npm install
 ```
 
----
-
-## How We Use Replit *(Required)*
-
-Replit is the proposed primary development and hosting environment for CareerLens. 
-
-- **Development:** Develop the web interface and backend application using Replit's cloud-based development environment.
-- **Hosting:** Host the application using Replit's deployment services.
-- **Secrets:** API keys are stored in Replit Secrets, never in the code.
-
-📄 Proof of use: [`submission/SDC2026_TeamName_Replit_POU.pdf`](submission/SDC2026_TeamName_Replit_POU.pdf)
-
-## How We Use RunPod *(Required)*
-
-Describe how your team used RunPod. For example:
-
-- **AI Workload:** Process extracted CV information using an AI model.
-Identify and categorize relevant skills.
-Support career suitability analysis.
-Generate structured skill gap insights and career recommendations.
-- **Setup:** Deploy the selected AI model using a RunPod GPU environment.
-Configure a serverless endpoint or other supported inference service.
-Implement a request handler to process incoming analysis requests.
-- **Integration:** The Replit backend sends CV-derived information and analysis instructions to RunPod.
-RunPod processes the request using the deployed model.
-The generated analysis is returned to Replit for presentation to the user.
-Example request:
+Inspect available application scripts:
 
 ```bash
-curl -X POST https://api.runpod.ai/v2/$RUNPOD_ENDPOINT_ID/runsync \
-  -H "Authorization: Bearer $RUNPOD_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"input": {"prompt": "Hello"}}'
+npm run
 ```
 
-📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
+Use the appropriate script defined in the repository's package.json to start the development server.
+
+Configure PostgreSQL, RunPod, TheirStack, and Adzuna using the environment-variable names expected by the application.
+
+The exact startup commands, database migrations, and supporting Python component instructions should be checked against the final repository source code.
+
+**Important:** Never commit API keys, credentials, or database passwords to GitHub.
+
+## 9. Security and Privacy
+
+CareerLens processes CV information, qualifications, skills, experiences, interests, and career preferences to provide personalized recommendations.
+
+The team's technical declaration describes the following data-handling approach:
+
+- Uploaded CV content is extracted for AI processing.
+- Relevant extracted text is processed through the configured RunPod service.
+- Original CV files and raw extracted text are not intentionally retained after analysis.
+- Users can review structured profile information before saving it.
+- Confirmed profiles and learning roadmaps are stored in PostgreSQL.
+- The application is described as supporting deletion of saved profiles and roadmaps.
+- API credentials are managed through server-side environment variables.
+- Administrative data imports use configured access controls.
+- Synthetic user profiles are used for hackathon demonstrations.
+
+The prototype does not yet establish a fixed automatic data-retention period.
+
+Additional authentication, security testing, privacy controls, and access-management improvements are required before production deployment.
+
+## 10. Known Limitations and Risks
+
+### AI Reliability
+
+AI-assisted extraction and explanations may contain inaccuracies. Users should review extracted information before relying on recommendations.
+
+### Occupational Data Coverage
+
+O*NET occupational information may not fully reflect current Malaysian employment requirements.
+
+### External API Availability
+
+TheirStack, Adzuna, and RunPod availability may depend on provider restrictions, access credentials, credits, and usage limits.
+
+### Dataset Freshness
+
+Historical job datasets and labour-market reports may not represent current vacancies or employer requirements.
+
+### SDG Mapping Coverage
+
+Some occupations may not have complete or verified SDG associations.
+
+### Future Predictions
+
+AI disruption scenarios are illustrative estimates rather than guaranteed forecasts.
+
+### Recommendation Fairness
+
+Further testing is required to evaluate recommendation relevance, reliability, and fairness across different user profiles.
+
+## 11. Sustainable Development Goals Impact
+
+### Primary Goal — SDG 4: Quality Education
+
+CareerLens supports **Target 4.4**, which promotes relevant technical and vocational skills for employment and entrepreneurship.
+
+The platform encourages users to identify missing skills and pursue accessible learning opportunities.
+
+### Related Goal — SDG 8: Decent Work and Economic Growth
+
+CareerLens supports **Target 8.5**, which focuses on productive employment and decent work.
+
+The platform aims to improve career awareness and skills alignment with occupational demands.
+
+### Proposed Phase 2 Evaluation Targets
+
+| KPI | Target |
+|---|---|
+| Top-three career recommendation relevance | At least 80% |
+| Source-supported learning pathways for successfully matched synthetic profiles | At least 90% |
+
+These are **planned Phase 2 evaluation targets**, not achieved or independently validated results.
+
+## 12. Development Methodology
+
+CareerLens follows a human-centered design-thinking process:
+
+1. **Empathise:** Understand career exploration and skills-development challenges faced by students, fresh graduates, and working professionals.
+2. **Define:** Identify limitations in conventional career searching and skills-matching approaches.
+3. **Ideate:** Develop AI-assisted CV analysis, career matching, Future Skills Radar, and personalized upskilling features.
+4. **Prototype:** Build an interactive web-based prototype using the declared technologies.
+5. **Test:** Review application behavior, matching logic, AI responses, dataset handling, and usability.
+
+## 13. Challenges and Learnings
+
+### CV Information Extraction
+
+CVs have different structures and layouts, making consistent information extraction challenging.
+
+**Approach:** Combine PDF/DOCX text extraction with structured AI-assisted skills analysis.
+
+### Skills Terminology and Career Matching
+
+Different occupational sources may describe similar competencies using different terminology.
+
+**Approach:** Use structured occupational requirements and explainable matching criteria.
+
+### Replit and RunPod Integration
+
+The application and AI inference environment operate as separate services.
+
+**Approach:** Use backend integration, structured requests, environment variables, and service testing.
+
+### External Data Reliability
+
+Job listing datasets and APIs may differ in freshness, availability, and geographic coverage.
+
+**Approach:** Use identifiable data sources and distinguish historical evidence from current market information.
+
+### Hackathon Time Constraints
+
+Developing multiple integrated features within a limited period requires careful prioritization.
+
+**Approach:** Focus on demonstrating an end-to-end career intelligence workflow while identifying additional improvements for Phase 2.
+
+## 14. AI-Assisted Development Tools
+
+The team declared the use of the following AI-assisted development tools:
+
+| Tool | Usage |
+|---|---|
+| ChatGPT (OpenAI) | Project ideation, feature planning, technical assistance, debugging, and documentation |
+| Replit AI | Application development, code generation, debugging, and component integration |
+| Manus AI | Trial website design assistance |
+
+AI-generated suggestions and code are subject to team review, debugging, testing, and validation.
+
+The team remains responsible for the implementation and submitted project.
+
+## 15. Future Improvements
+
+- Improve Malaysian labour-market coverage.
+- Strengthen evidence-based career matching.
+- Expand occupational and skills datasets.
+- Improve job market updates and source attribution.
+- Enhance personalized learning recommendations.
+- Refine AI disruption scenarios and Future Skills Radar.
+- Improve SDG association coverage.
+- Strengthen security, authentication, and privacy safeguards.
+- Evaluate recommendations using more diverse and representative profiles.
+- Conduct additional usability and accessibility testing.
+
+## 16. Sponsors and Acknowledgments
+
+The team acknowledges the SDC Hackathon organizers and sponsor-provided resources, including:
+
+- **Replit Core** — Development, testing, and deployment environment.
+- **RunPod** — US$25 sponsored credits supporting AI inference.
+
+CareerLens also acknowledges the third-party technologies, occupational resources, datasets, and research references described in this README.
+
+## 17. Project Submission
+
+**SDC Hackathon 2026 — Phase 1**
+
+- Preliminary Project Proposal
+- Technical & Tools Declaration
+- Replit Proof of Use
+- RunPod Proof of Use
+- CareerLens Live Prototype
+- Project Overview
+- Demo Video
+- GitHub Repository
+
+Supporting documents and evidence should be linked using their actual repository paths once uploaded.
+
+## 18. Licensing
+
+Third-party libraries, models, datasets, and services remain subject to their respective licenses and provider terms.
+
+The license for the team's own source code should be confirmed from the repository's LICENSE file before a specific license is stated.
 
 ---
 
-## Challenges & Learnings
-
-1. Extracting Accurate Information from CVs
-
-CVs contain different layouts and formatting styles, making consistent information extraction challenging.
-
-Proposed approach: Combine document text extraction with AI-powered skill identification to improve the consistency of structured CV analysis.
-
-2. Identifying Relevant Skill Gaps
-
-Job descriptions may use different terminology for similar technical skills.
-
-Proposed approach: Normalize extracted skills and compare them against structured job requirements.
-
-3. Integrating Replit with RunPod
-
-Connecting the web application to a separate AI inference environment requires secure API communication and reliable response handling.
-
-Proposed approach: Use environment variables, structured JSON requests, error handling, and endpoint testing.
-
-4. Managing Development Time
-
-Developing multiple AI-powered features within a limited hackathon timeframe requires careful prioritization.
-
-Proposed approach: Focus on an end-to-end minimum viable product (MVP) that demonstrates CV analysis, career matching, and actionable skill recommendations.
-
-## Future Improvements
-
-- Real-Time Job Market Integration: Integrate authorized job listing APIs to retrieve current employment opportunities.
-
-- Advanced Career Matching: Improve recommendation accuracy using more detailed skills, qualifications, and experience analysis.
-
-- Personalized Learning Roadmaps: Generate structured weekly or monthly learning plans.
-
-## Team
-
-| Name        | Role                | GitHub                                   |
-| ----------- | ------------------- | ---------------------------------------- |
-| 'Ainaa Qistina binti Mohd Nazrin | Team Lead / Backend | [@username](https://github.com/ainaaqistina) |
-| Sharifah Nur Hayati binti Syed Zakaria | Frontend, AI, RunPod        | [@username](https://github.com/username) |
----
-
-## License
-
-This project is licensed under the [Apache License 2.0](LICENSE).
+**CareerLens | Team syntax | Universiti Teknikal Malaysia Melaka (UTeM) | SDC Hackathon 2026**

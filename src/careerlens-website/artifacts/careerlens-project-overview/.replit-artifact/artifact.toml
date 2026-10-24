@@ -1,0 +1,28 @@
+kind = "slides"
+previewPath = "/careerlens-project-overview/"
+title = "CareerLens Project Overview"
+description = "A five-slide overview of CareerLens: CV-to-profile extraction, explainable career matching, personalized learning roadmaps, AI disruption scenarios, future skills signals, and SDG context."
+version = "1.0.0"
+id = "artifacts/careerlens-project-overview"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/careerlens-project-overview/" ]
+localPort = 19304
+
+[services.development]
+run = "pnpm --filter @workspace/careerlens-project-overview run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/careerlens-project-overview", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/careerlens-project-overview/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19304"
+BASE_PATH = "/careerlens-project-overview/"
